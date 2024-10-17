@@ -1,50 +1,11 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { fetchGroceries } from '@/api/groceriesApi';
 import type { ItemType } from '@/types';
-// import TheWelcome from '../components/TheWelcome.vue'
-
-type SelectedItem = {
-  item: ItemType;
-  amount: number;
-};
+import { useCartStore } from '@/stores/cartStore';
 
 const items = ref<ItemType[]>([]);
-const selectedItems = ref<SelectedItem[]>([]);
-
-const itemIdToAmountMap = computed<Record<string, number>>(() => {
-  const entries = selectedItems.value.map(({ item, amount }) => [item.id, amount]);
-  return Object.fromEntries(entries);
-});
-
-const totalPrice = computed<number>(() => {
-  return selectedItems.value.reduce((total, { item, amount }) => total + item.price * amount, 0);
-});
-
-const getStock = (item: ItemType) => {
-  const selectedStock = itemIdToAmountMap.value[item.id] ?? 0;
-  return item.stock - selectedStock;
-};
-
-const addItem = (item: ItemType) => {
-  const selectedItem = selectedItems.value.find((selectedItem) => selectedItem.item.id === item.id);
-  const stock = getStock(item);
-  if (stock <= 0) return;
-  if (selectedItem) {
-    selectedItem.amount += 1;
-  } else {
-    selectedItems.value.push({ item, amount: 1 });
-  }
-};
-
-const removeItem = (item: ItemType) => {
-  const selectedItem = selectedItems.value.find((selectedItem) => selectedItem.item.id === item.id);
-  if (!selectedItem) return;
-  selectedItem.amount -= 1;
-  if (selectedItem.amount <= 0) {
-    selectedItems.value = selectedItems.value.filter((selectedItem) => selectedItem.item.id !== item.id);
-  }
-};
+const cartStore = useCartStore();
 
 onMounted(async () => {
   const groceries = await fetchGroceries();
@@ -54,25 +15,24 @@ onMounted(async () => {
 
 <template>
   <main>
-    <!-- <TheWelcome /> -->
     <div>
       CART:
       <ul>
-        <li v-for="{ item, amount } in selectedItems" :key="item.id">
+        <li v-for="{ item, amount } in cartStore.cartItems" :key="item.id">
           {{ item.name }} ({{ item.price }}) {{ amount }}
-          <button @click="addItem(item)">Add</button>
-          <button @click="removeItem(item)">Remove</button>
+          <button @click="cartStore.addItem(item)">Add</button>
+          <button @click="cartStore.removeItem(item)">Remove</button>
         </li>
       </ul>
-      Total: {{ totalPrice }}€
+      Total: {{ cartStore.totalPrice }}€
     </div>
 
     Groceries:
     <ul>
       <li v-for="item in items" :key="item.id">
-        {{ item.name }} (STOCK: {{ getStock(item) }}, PRICE: {{ item.price }}€)
-        <button @click="addItem(item)">Add</button>
-        <button @click="removeItem(item)">Remove</button>
+        {{ item.name }} (STOCK: {{ cartStore.getStock(item) }}, PRICE: {{ item.price }}€)
+        <button @click="cartStore.addItem(item)">Add</button>
+        <button @click="cartStore.removeItem(item)">Remove</button>
       </li>
     </ul>
   </main>
