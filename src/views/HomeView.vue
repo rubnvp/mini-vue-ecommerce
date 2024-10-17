@@ -15,7 +15,7 @@ onMounted(async () => {
 
 <template>
   <main>
-    <div>
+    <div v-if="false">
       CART:
       <ul>
         <li v-for="{ item, amount } in cartStore.cartItems" :key="item.id">
