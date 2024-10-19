@@ -34,7 +34,7 @@ function closeCart() {
         </button>
       </nav>
     </div>
-    <div class="app__cart" :class="{ 'app__cart--open': isCartOpen }" v-on-click-outside.bubble="closeCart">
+    <aside class="app__cart" :class="{ 'app__cart--open': isCartOpen }" v-on-click-outside.bubble="closeCart">
       <ul>
         <li v-for="{ item, amount } in cartStore.cartItems" :key="item.id">
           {{ item.name }} ({{ item.price }}) {{ amount }}
@@ -43,7 +43,7 @@ function closeCart() {
         </li>
       </ul>
       Total: {{ cartStore.totalPrice }}€
-    </div>
+    </aside>
   </header>
 
   <RouterView class="app__view" />
