@@ -3,6 +3,7 @@ import { onMounted, ref } from 'vue';
 import { fetchGroceries } from '@/api/groceriesApi';
 import type { ItemType } from '@/types';
 import { useCartStore } from '@/stores/cartStore';
+import ItemCard from '@/components/ItemCard.vue';
 
 const items = ref<ItemType[]>([]);
 const cartStore = useCartStore();
@@ -15,25 +16,20 @@ onMounted(async () => {
 
 <template>
   <main>
-    <div v-if="false">
-      CART:
-      <ul>
-        <li v-for="{ item, amount } in cartStore.cartItems" :key="item.id">
-          {{ item.name }} ({{ item.price }}) {{ amount }}
-          <button @click="cartStore.addItem(item)">Add</button>
-          <button @click="cartStore.removeItem(item)">Remove</button>
-        </li>
-      </ul>
-      Total: {{ cartStore.totalPrice }}€
+    <div class="home-view__cards">
+      <ItemCard v-for="item in items" :key="item.id" :item="item" :stock="cartStore.getStock(item)"
+        :selectedAmount="cartStore.itemIdToAmountMap[item.id]" @onAdd="cartStore.addItem"
+        @onRemove="cartStore.removeItem" />
     </div>
-
-    Groceries:
-    <ul>
-      <li v-for="item in items" :key="item.id">
-        {{ item.name }} (STOCK: {{ cartStore.getStock(item) }}, PRICE: {{ item.price }}€)
-        <button @click="cartStore.addItem(item)">Add</button>
-        <button @click="cartStore.removeItem(item)">Remove</button>
-      </li>
-    </ul>
   </main>
 </template>
+
+<style lang="scss">
+.home-view {
+  &__cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+}
+</style>

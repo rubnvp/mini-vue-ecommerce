@@ -22,14 +22,16 @@ function closeCart() {
 <template>
   <header class="app__header">
     <div class="app__inner-header">
-      <img src="@/assets/images/logo.png" alt="Main logo" class="app__logo">
+      <RouterLink to="/">
+        <img src="@/assets/images/logo.png" alt="Main logo" class="app__logo">
+      </RouterLink>
       <nav class="app__navbar">
-        <RouterLink class="app__navbar--item" to="/">Home</RouterLink>
+        <RouterLink class="app__navbar--item" to="/">Favorites</RouterLink>
         <RouterLink class="app__navbar--item" to="/about">About</RouterLink>
-        <div ref="toggleCartButton" class="app__cart-toggle" @click.stop="toggleCart">
+        <button class="app__cart-toggle" @click.stop="toggleCart">
           <img class="app__cart-toggle--icon" src="@/assets/images/cart.svg" alt="cart">
           <div v-if="cartStore.length" class="app__cart-toggle--counter">{{ cartStore.length }}</div>
-        </div>
+        </button>
       </nav>
     </div>
     <div class="app__cart" :class="{ 'app__cart--open': isCartOpen }" v-on-click-outside.bubble="closeCart">
@@ -70,18 +72,26 @@ function closeCart() {
     &--item {
       color: white;
       text-decoration: none;
-      margin-left: 1rem;
+      padding: 0.5rem;
     }
   }
 
   &__cart-toggle {
     position: relative;
-    margin-left: 1rem;
     display: flex;
     align-items: center;
+    background-color: transparent;
+    border: none;
+    border-radius: 50%;
+    padding: 12px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
 
     &--icon {
-      height: 2rem;
+      height: 24px;
     }
 
     &--counter {

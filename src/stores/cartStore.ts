@@ -63,6 +63,7 @@ export const useCartStore = defineStore('cart', () => {
   return {
     cartItems,
     length,
+    itemIdToAmountMap,
     getStock,
     addItem,
     removeItem,
