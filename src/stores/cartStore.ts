@@ -19,10 +19,6 @@ export const useCartStore = defineStore('cart', () => {
     return Object.fromEntries(entries);
   });
 
-  const length = computed<number>(() =>
-    cartItems.value.reduce((total, { amount }) => total + amount, 0),
-  );
-
   const getStock = (item: ItemType) => {
     const selectedStock = itemIdToAmountMap.value[item.id] ?? 0;
     return item.stock - selectedStock;
@@ -54,6 +50,10 @@ export const useCartStore = defineStore('cart', () => {
     }
   };
 
+  const totalLength = computed<number>(() =>
+    cartItems.value.reduce((total, { amount }) => total + amount, 0),
+  );
+
   const totalPrice = computed<number>(() => {
     return cartItems.value.reduce(
       (total, { item, amount }) => total + item.price * amount,
@@ -63,11 +63,11 @@ export const useCartStore = defineStore('cart', () => {
 
   return {
     cartItems,
-    length,
     itemIdToAmountMap,
     getStock,
     addItem,
     removeItem,
+    totalLength,
     totalPrice,
   };
 });

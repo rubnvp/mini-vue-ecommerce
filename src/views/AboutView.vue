@@ -13,6 +13,7 @@
       <li>See stock availability for each product.</li>
       <li>Add a product to the cart.</li>
       <li>See the list of items in the cart.</li>
+      <li>Persist the cart items in the local storage.</li>
       <li>Increase/decrease the quantity of the products already in the cart.</li>
       <li>See cart total amount.</li>
     </ul>
