@@ -23,6 +23,8 @@ const toggleId = 'cart-toggle';
 
 <style lang="scss">
 .navbar-view {
+  z-index: 1;
+
   &__inner-header {
     color: white;
     padding: 1rem;

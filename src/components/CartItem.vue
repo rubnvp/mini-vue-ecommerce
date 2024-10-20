@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { ItemType } from '@/types';
-import { defineProps } from 'vue';
 
 const { item, amount } = defineProps<{
     item: ItemType;

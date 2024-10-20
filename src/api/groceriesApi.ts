@@ -3,7 +3,7 @@ import type { ItemType } from '@/types';
 const BASE_API = '/api';
 
 export async function fetchGroceries(): Promise<ItemType[]> {
-  const response = await fetch(`${BASE_API}/grocery?_page=1&_per_page=20`);
+  const response = await fetch(`${BASE_API}/grocery?_page=1&_limit=24`);
   const groceries = await response.json();
   // override the imageUrl with a random cat image (the original links are broken)
   return groceries.map((grocery: ItemType) => ({
