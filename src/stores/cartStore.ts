@@ -1,4 +1,5 @@
-import { ref, computed } from 'vue';
+import { computed } from 'vue';
+import { useStorage } from '@vueuse/core';
 import { defineStore } from 'pinia';
 import type { ItemType } from '@/types';
 
@@ -8,7 +9,7 @@ type CartItem = {
 };
 
 export const useCartStore = defineStore('cart', () => {
-  const cartItems = ref<CartItem[]>([]);
+  const cartItems = useStorage<CartItem[]>('cart-items', []);
 
   const itemIdToAmountMap = computed<Record<string, number>>(() => {
     const entries = cartItems.value.map(({ item, amount }) => [
