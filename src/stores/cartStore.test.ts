@@ -153,12 +153,13 @@ describe('Cart Store', () => {
     };
     // ACT
     cartStore.addItem(item1);
+    cartStore.addItem(item1);
     cartStore.addItem(item2);
     await cartStore.checkout();
     // ASSERT
     expect(cartStore.cartItems).toEqual([]); // cart is empty
     expect(updateGrocery).toHaveBeenCalledTimes(2);
-    expect(updateGrocery).toHaveBeenCalledWith({ id: '1', stock: 9 });
+    expect(updateGrocery).toHaveBeenCalledWith({ id: '1', stock: 8 });
     expect(updateGrocery).toHaveBeenCalledWith({ id: '2', stock: 4 });
   });
 });
