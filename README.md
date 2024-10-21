@@ -1,29 +1,37 @@
-# mini-vue-ecommerce
+# Mini Vue Ecommerce
 
-This template should help get you started developing with Vue 3 in Vite.
+Welcome to the Mini Vue Ecommerce project! 🤗 a simulated mini e-commerce website made with Vue.js. Check the deployed version [on Render](https://mini-vue-ecommerce.onrender.com/).
 
-## Recommended IDE Setup
+This application is built with:
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- [Vue 3](https://vuejs.org/) with [Router](https://router.vuejs.org/), [Pinia](https://pinia.vuejs.org/) and [TypeScript](https://www.typescriptlang.org/).
+- [SASS](https://sass-lang.com/) for the styling.
+- [Vite](https://vitejs.dev/) for the build and development tool.
+- [JSON server](https://github.com/typicode/json-server) for the fake REST API.
+- [Vitest](https://vitest.dev/) for unit testing.
+- [ESLint](https://eslint.org/) and [Prettier](https://prettier.io/) for linting and formatting.
 
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
+![Mini Vue Ecommerce](./design-mockups/desktop-view.png)
 
 ## Project Setup
 
 ```sh
 npm install
+npm run copy:db # copy
 ```
 
-### Compile and Hot-Reload for Development
+### Development
+
+Start JSON server and Vite for development.
 
 ```sh
 npm run dev
+```
+
+### Run unit tests with [Vitest](https://vitest.dev/)
+
+```sh
+npm run test:unit
 ```
 
 ### Type-Check, Compile and Minify for Production
@@ -36,4 +44,10 @@ npm run build
 
 ```sh
 npm run lint
+```
+
+### Format with [Prettier](https://prettier.io/)
+
+```sh
+npm run format
 ```
