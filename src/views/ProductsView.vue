@@ -11,7 +11,7 @@ const cartStore = useCartStore();
 const page = ref(0);
 const loadMore = async () => {
   page.value++;
-  const groceries = await fetchGroceries({ page: page.value });
+  const groceries = await fetchGroceries({ page: page.value, limit: 24 });
   items.value = [...items.value, ...groceries];
 };
 

@@ -15,7 +15,7 @@ async function removeFavorite(item: ItemType) {
 }
 
 async function fetchFavorites() {
-  const groceries = await fetchGroceries({ favorite: true });
+  const groceries = await fetchGroceries({ favorite: true, limit: 100 });
   items.value = groceries;
 }
 

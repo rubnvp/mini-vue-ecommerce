@@ -10,10 +10,10 @@ interface FetchGroceriesParams {
 export async function fetchGroceries(
   params: FetchGroceriesParams,
 ): Promise<ItemType[]> {
-  const { page = 1, limit = 24, favorite } = params || {};
+  const { page = 1, limit, favorite } = params || {};
   const urlParams = new URLSearchParams({
     _page: page.toString(),
-    _limit: limit.toString(),
+    ...(limit !== undefined && { _limit: limit.toString() }),
     ...(favorite !== undefined && { favorite: String(favorite) }),
   });
   const response = await fetch(`${BASE_API}/grocery?${urlParams.toString()}`);
