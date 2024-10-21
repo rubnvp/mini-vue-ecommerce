@@ -10,7 +10,6 @@
     "build": "run-p type-check \"build-only {@}\" --",
     "copy:db": "cp db-original.json db.json",
     "start": "json-server --host 0.0.0.0 -p 10000 --static ./dist db.json",
-    "preview": "vite preview",
     "test:unit": "vitest",
     "build-only": "vite build",
     "type-check": "vue-tsc --build --force",
