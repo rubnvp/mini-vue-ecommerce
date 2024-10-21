@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "npm run copy:db && run-p dev:frontend dev:backend",
+    "dev": "run-p dev:frontend dev:backend",
     "dev:frontend": "vite",
     "dev:backend": "json-server -p 4000 --watch db.json",
     "build": "run-p type-check \"build-only {@}\" --",
