@@ -23,6 +23,8 @@ const toggleId = 'cart-toggle';
 </template>
 
 <style lang="scss">
+@import '@/assets/variables.scss';
+
 .navbar-view {
   &__inner-header {
     color: inherit;
@@ -46,6 +48,15 @@ const toggleId = 'cart-toggle';
       color: white;
       text-decoration: none;
       padding: 0.5rem;
+
+      &:first-child {
+        // Hide the first item on small mobile
+        display: none;
+
+        @media (min-width: $small-mobile) {
+          display: block;
+        }
+      }
     }
   }
 }
