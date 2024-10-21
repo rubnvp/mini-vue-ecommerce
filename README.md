@@ -17,7 +17,7 @@ This application is built with:
 
 ```sh
 npm install
-npm run copy:db # copy
+npm run copy:db # copy data to db.json
 ```
 
 ### Development
@@ -34,12 +34,6 @@ npm run dev
 npm run test:unit
 ```
 
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
-
 ### Lint with [ESLint](https://eslint.org/)
 
 ```sh
@@ -50,4 +44,10 @@ npm run lint
 
 ```sh
 npm run format
+```
+
+### Type-Check, Compile and Minify for Production
+
+```sh
+npm run build
 ```
