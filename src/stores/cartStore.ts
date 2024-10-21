@@ -2,6 +2,7 @@ import { computed } from 'vue';
 import { useStorage } from '@vueuse/core';
 import { defineStore } from 'pinia';
 import type { ItemType } from '@/types';
+import { updateGrocery } from '@/api/groceriesApi';
 
 type CartItem = {
   item: ItemType;
@@ -19,8 +20,12 @@ export const useCartStore = defineStore('cart', () => {
     return Object.fromEntries(entries);
   });
 
+  const getSelectedAmount = (item: ItemType) => {
+    return itemIdToAmountMap.value[item.id] ?? 0;
+  };
+
   const getStock = (item: ItemType) => {
-    const selectedStock = itemIdToAmountMap.value[item.id] ?? 0;
+    const selectedStock = getSelectedAmount(item);
     return item.stock - selectedStock;
   };
 
@@ -61,13 +66,24 @@ export const useCartStore = defineStore('cart', () => {
     );
   });
 
+  async function checkout() {
+    const itemUpdates = cartItems.value.map(({ item }) => ({
+      id: item.id,
+      stock: getStock(item),
+    }));
+    await Promise.all(itemUpdates.map(updateGrocery));
+    cartItems.value = [];
+    return true;
+  }
+
   return {
     cartItems,
-    itemIdToAmountMap,
+    getSelectedAmount,
     getStock,
     addItem,
     removeItem,
     totalLength,
     totalPrice,
+    checkout,
   };
 });

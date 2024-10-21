@@ -19,6 +19,13 @@ function closeCart() {
     isCartOpen.value = false;
   }
 }
+
+async function checkout() {
+  if (!window.confirm(`Do you want to checkout ${cartStore.totalLength} items for ${cartStore.totalPrice}€?`)) return;
+  await cartStore.checkout();
+  window.alert('Checkout successful!');
+  closeCart();
+}
 </script>
 
 <template>
@@ -33,7 +40,7 @@ function closeCart() {
       {{ cartStore.totalLength }} items selected
       <div class="cart-view__checkout">
         <b>Total {{ cartStore.totalPrice }}€</b>
-        <button class="ds-primary-button">Checkout</button>
+        <button @click="checkout" class="ds-primary-button">Checkout</button>
       </div>
     </div>
     <div class="cart-view__items">

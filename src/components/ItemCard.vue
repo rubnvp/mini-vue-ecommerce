@@ -20,10 +20,6 @@ const isOutOfStock = computed(() => stock <= 0);
 
 <template>
   <div class="item-card">
-    <button @click="emit('onFavorite', item)" class="item-card__favorite" aria-label="favorite">
-      <img v-if="item.favorite" src="@/assets/images/heart-fill.svg">
-      <img v-else src="@/assets/images/heart-outline.svg">
-    </button>
     <div :class="{ 'item-card--no-stock': isOutOfStock }">
       <img class="item-card__image" :src="item.imageUrl" alt="product image">
       <div>
@@ -34,6 +30,10 @@ const isOutOfStock = computed(() => stock <= 0);
         <p class="item-card__description" :title="item.description">{{ item.description }}</p>
       </div>
     </div>
+    <button @click="emit('onFavorite', item)" class="item-card__favorite" aria-label="favorite">
+      <img v-if="item.favorite" src="@/assets/images/heart-fill.svg">
+      <img v-else src="@/assets/images/heart-outline.svg">
+    </button>
     <div class="item-card__bottom">
       <p>{{ stock }} left</p>
       <div class="item-card__bottom-buttons">

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 import { fetchGroceries, updateGrocery } from '@/api/groceriesApi';
 import type { ItemType } from '@/types';
 import { useCartStore } from '@/stores/cartStore';
@@ -19,8 +19,23 @@ async function fetchFavorites() {
   items.value = groceries;
 }
 
+const unsubscribeStore = cartStore.$onAction(
+  ({ name, after }) => {
+    after((result) => {
+      if (name === 'checkout' && result === true) {
+        // Reset the view after a successful checkout
+        fetchFavorites();
+      }
+    })
+  }
+);
+
 onMounted(async () => {
   fetchFavorites();
+});
+
+onUnmounted(() => {
+  unsubscribeStore();
 });
 </script>
 
@@ -28,8 +43,8 @@ onMounted(async () => {
   <main>
     <div class="favorites-view__cards">
       <ItemCard v-for="item in items" :key="item.id" :item="item" :stock="cartStore.getStock(item)"
-        :selectedAmount="cartStore.itemIdToAmountMap[item.id]" @onAdd="cartStore.addItem"
-        @onRemove="cartStore.removeItem" @onFavorite="removeFavorite" />
+        :selectedAmount="cartStore.getSelectedAmount(item)" @onAdd="cartStore.addItem" @onRemove="cartStore.removeItem"
+        @onFavorite="removeFavorite" />
     </div>
   </main>
 </template>
