@@ -10,7 +10,7 @@ type CartItem = {
 };
 
 export const useCartStore = defineStore('cart', () => {
-  const cartItems = useStorage<CartItem[]>('cart-items', []);
+  const cartItems = useStorage<CartItem[]>('cart-items', []); // persistent on local storage
 
   const itemIdToAmountMap = computed<Record<string, number>>(() => {
     const entries = cartItems.value.map(({ item, amount }) => [

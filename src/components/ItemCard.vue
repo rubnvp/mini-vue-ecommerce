@@ -59,7 +59,6 @@ const isOutOfStock = computed(() => stock <= 0);
   padding: 1rem;
   border: 1px solid #ccc;
   border-radius: 5px;
-  margin-bottom: 1rem;
   position: relative;
 
   &--no-stock {
