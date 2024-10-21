@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import { vOnClickOutside } from '@vueuse/components'
 import { useCartStore } from '@/stores/cartStore';
+import { pluralize } from '@/utils';
 import CartItem from '@/components/CartItem.vue';
 
 const { toggleId } = defineProps<{ toggleId: string }>();
@@ -21,7 +22,7 @@ function closeCart() {
 }
 
 async function checkout() {
-  if (!window.confirm(`Do you want to checkout ${cartStore.totalLength} items for ${cartStore.totalPrice}€?`)) return;
+  if (!window.confirm(`Do you want to checkout ${cartStore.totalLength} ${pluralize('item', cartStore.totalLength)} for ${cartStore.totalPrice}€?`)) return;
   await cartStore.checkout();
   window.alert('Checkout successful!');
   closeCart();
@@ -37,10 +38,12 @@ async function checkout() {
       </button>
     </Teleport>
     <div class="cart-view__title">
-      {{ cartStore.totalLength }} items selected
+      <span>
+        <b>{{ cartStore.totalLength }} {{ pluralize('item', cartStore.totalLength) }}</b> selected
+      </span>
       <div class="cart-view__checkout">
         <b>Total {{ cartStore.totalPrice }}€</b>
-        <button @click="checkout" class="ds-primary-button">Checkout</button>
+        <button @click="checkout" :disabled="!cartStore.totalLength" class="ds-primary-button">Checkout</button>
       </div>
     </div>
     <div class="cart-view__items">
@@ -51,6 +54,8 @@ async function checkout() {
 </template>
 
 <style lang="scss">
+@import '@/assets/variables.scss';
+
 .cart-view {
   position: absolute;
   height: 100vh;
@@ -63,6 +68,11 @@ async function checkout() {
   padding: 10px;
 
   &--open {
+    transform: translateX(0);
+  }
+
+  @media (min-width: $desktop) {
+    // Keep the cart open on larger screens
     transform: translateX(0);
   }
 
@@ -97,6 +107,10 @@ async function checkout() {
     border-radius: 50%;
     padding: 12px;
     cursor: pointer;
+
+    @media (min-width: $desktop) {
+      display: none;
+    }
 
     &:hover {
       background-color: rgba(255, 255, 255, 0.1);
