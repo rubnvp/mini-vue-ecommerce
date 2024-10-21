@@ -8,7 +8,7 @@
     "dev:frontend": "vite",
     "dev:backend": "json-server -p 4000 --watch db.json",
     "build": "run-p type-check \"build-only {@}\" --",
-    "start": "json-server --static ./dist db.json",
+    "start": "json-server -p 10000 --static ./dist db.json",
     "preview": "vite preview",
     "build-only": "vite build",
     "type-check": "vue-tsc --build --force",
