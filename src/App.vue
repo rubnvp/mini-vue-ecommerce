@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { RouterView } from 'vue-router'
+import { RouterView } from 'vue-router';
 import NavbarView from '@/views/NavbarView.vue';
 </script>
 
@@ -37,6 +37,5 @@ import NavbarView from '@/views/NavbarView.vue';
       margin: 0 auto;
     }
   }
-
 }
 </style>

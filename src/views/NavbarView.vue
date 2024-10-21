@@ -9,12 +9,22 @@ const toggleId = 'cart-toggle';
   <header class="navbar-view">
     <div class="navbar-view__inner-header">
       <RouterLink to="/">
-        <img src="@/assets/images/logo.png" alt="Main logo" class="navbar-view__logo">
+        <img
+          src="@/assets/images/logo.png"
+          alt="Main logo"
+          class="navbar-view__logo"
+        />
       </RouterLink>
       <nav class="navbar-view__navbar">
-        <RouterLink class="navbar-view__navbar--item" to="/">Products</RouterLink>
-        <RouterLink class="navbar-view__navbar--item" to="/favorites">Favorites</RouterLink>
-        <RouterLink class="navbar-view__navbar--item" to="/about">About</RouterLink>
+        <RouterLink class="navbar-view__navbar--item" to="/"
+          >Products</RouterLink
+        >
+        <RouterLink class="navbar-view__navbar--item" to="/favorites"
+          >Favorites</RouterLink
+        >
+        <RouterLink class="navbar-view__navbar--item" to="/about"
+          >About</RouterLink
+        >
         <span :id="toggleId"></span>
       </nav>
     </div>

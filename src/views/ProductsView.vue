@@ -19,20 +19,21 @@ const fetchProducts = async (newPage: number) => {
 };
 
 async function toggleFavorite(item: ItemType) {
-  const updatedItem = await updateGrocery({ id: item.id, favorite: !item.favorite });
+  const updatedItem = await updateGrocery({
+    id: item.id,
+    favorite: !item.favorite,
+  });
   item.favorite = updatedItem.favorite;
 }
 
-const unsubscribeStore = cartStore.$onAction(
-  ({ name, after }) => {
-    after((result) => {
-      if (name === 'checkout' && result === true) {
-        // Reset the page to 1 after a successful checkout
-        fetchProducts(1);
-      }
-    })
-  }
-);
+const unsubscribeStore = cartStore.$onAction(({ name, after }) => {
+  after(result => {
+    if (name === 'checkout' && result === true) {
+      // Reset the page to 1 after a successful checkout
+      fetchProducts(1);
+    }
+  });
+});
 
 onMounted(async () => {
   fetchProducts(1);
@@ -46,15 +47,22 @@ onUnmounted(() => {
 <template>
   <main>
     <div class="products-view__cards">
-      <ItemCard v-for="item in items" :key="item.id" :item="item" :stock="cartStore.getStock(item)"
-        :selectedAmount="cartStore.getSelectedAmount(item)" @onAdd="cartStore.addItem" @onRemove="cartStore.removeItem"
-        @onFavorite="toggleFavorite" />
+      <ItemCard
+        v-for="item in items"
+        :key="item.id"
+        :item="item"
+        :stock="cartStore.getStock(item)"
+        :selectedAmount="cartStore.getSelectedAmount(item)"
+        @onAdd="cartStore.addItem"
+        @onRemove="cartStore.removeItem"
+        @onFavorite="toggleFavorite"
+      />
     </div>
     <div class="products-view__load-more">
-      <p>
-        Showing {{ items.length }} out of 1,000 products
-      </p>
-      <button class="ds-primary-button" @click="fetchProducts(page + 1)">⚡️ Load more</button>
+      <p>Showing {{ items.length }} out of 1,000 products</p>
+      <button class="ds-primary-button" @click="fetchProducts(page + 1)">
+        ⚡️ Load more
+      </button>
     </div>
   </main>
 </template>

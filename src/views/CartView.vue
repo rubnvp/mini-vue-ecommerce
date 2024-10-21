@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { vOnClickOutside } from '@vueuse/components'
+import { vOnClickOutside } from '@vueuse/components';
 import { useCartStore } from '@/stores/cartStore';
 import { pluralize } from '@/utils';
 import CartItem from '@/components/CartItem.vue';
@@ -22,7 +22,12 @@ function closeCart() {
 }
 
 async function checkout() {
-  if (!window.confirm(`Do you want to checkout ${cartStore.totalLength} ${pluralize('item', cartStore.totalLength)} for ${cartStore.totalPrice}€?`)) return;
+  if (
+    !window.confirm(
+      `Do you want to checkout ${cartStore.totalLength} ${pluralize('item', cartStore.totalLength)} for ${cartStore.totalPrice}€?`,
+    )
+  )
+    return;
   await cartStore.checkout();
   window.alert('Checkout successful!');
   closeCart();
@@ -30,25 +35,51 @@ async function checkout() {
 </script>
 
 <template>
-  <aside class="cart-view" :class="{ 'cart-view--open': isCartOpen }" v-on-click-outside.bubble="closeCart">
+  <aside
+    class="cart-view"
+    :class="{ 'cart-view--open': isCartOpen }"
+    v-on-click-outside.bubble="closeCart"
+  >
     <Teleport :to="`#${toggleId}`" defer>
       <button class="cart-view__toggle" @click.stop="toggleCart">
-        <img class="cart-view__toggle--icon" src="@/assets/images/cart.svg" alt="cart">
-        <div v-if="cartStore.totalLength" class="cart-view__toggle--counter">{{ cartStore.totalLength }}</div>
+        <img
+          class="cart-view__toggle--icon"
+          src="@/assets/images/cart.svg"
+          alt="cart"
+        />
+        <div v-if="cartStore.totalLength" class="cart-view__toggle--counter">
+          {{ cartStore.totalLength }}
+        </div>
       </button>
     </Teleport>
     <div class="cart-view__title">
       <span>
-        <b>{{ cartStore.totalLength }} {{ pluralize('item', cartStore.totalLength) }}</b> selected
+        <b
+          >{{ cartStore.totalLength }}
+          {{ pluralize('item', cartStore.totalLength) }}</b
+        >
+        selected
       </span>
       <div class="cart-view__checkout">
         <b>Total {{ cartStore.totalPrice }}€</b>
-        <button @click="checkout" :disabled="!cartStore.totalLength" class="ds-primary-button">Checkout</button>
+        <button
+          @click="checkout"
+          :disabled="!cartStore.totalLength"
+          class="ds-primary-button"
+        >
+          Checkout
+        </button>
       </div>
     </div>
     <div class="cart-view__items">
-      <CartItem v-for="{ item, amount } in cartStore.cartItems" :key="item.id" :item="item" :amount="amount"
-        @onAdd="cartStore.addItem" @onRemove="cartStore.removeItem" />
+      <CartItem
+        v-for="{ item, amount } in cartStore.cartItems"
+        :key="item.id"
+        :item="item"
+        :amount="amount"
+        @onAdd="cartStore.addItem"
+        @onRemove="cartStore.removeItem"
+      />
     </div>
   </aside>
 </template>

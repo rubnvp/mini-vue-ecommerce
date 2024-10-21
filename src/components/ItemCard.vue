@@ -2,16 +2,20 @@
 import { computed } from 'vue';
 import type { ItemType } from '@/types';
 
-const { item, stock, selectedAmount = 0 } = defineProps<{
+const {
+  item,
+  stock,
+  selectedAmount = 0,
+} = defineProps<{
   item: ItemType;
   stock: number;
   selectedAmount: number;
 }>();
 
 const emit = defineEmits<{
-  onAdd: [item: ItemType]
-  onRemove: [item: ItemType]
-  onFavorite: [item: ItemType]
+  onAdd: [item: ItemType];
+  onRemove: [item: ItemType];
+  onFavorite: [item: ItemType];
 }>();
 
 const isSelected = computed(() => selectedAmount > 0);
@@ -26,29 +30,42 @@ function emitAdd() {
 <template>
   <div class="item-card">
     <div :class="{ 'item-card--no-stock': isOutOfStock }">
-      <img class="item-card__image" :src="item.imageUrl" alt="product image">
+      <img class="item-card__image" :src="item.imageUrl" alt="product image" />
       <div>
         <div class="item-card__title">
           <h3>{{ item.name }}</h3>
           <span class="item-card__price">{{ item.price }}€</span>
         </div>
-        <p class="item-card__description" :title="item.description">{{ item.description }}</p>
+        <p class="item-card__description" :title="item.description">
+          {{ item.description }}
+        </p>
       </div>
     </div>
-    <button @click="emit('onFavorite', item)" class="item-card__favorite" aria-label="favorite">
-      <img v-if="item.favorite" src="@/assets/images/heart-fill.svg">
-      <img v-else src="@/assets/images/heart-outline.svg">
+    <button
+      @click="emit('onFavorite', item)"
+      class="item-card__favorite"
+      aria-label="favorite"
+    >
+      <img v-if="item.favorite" src="@/assets/images/heart-fill.svg" />
+      <img v-else src="@/assets/images/heart-outline.svg" />
     </button>
     <div class="item-card__bottom">
       <p>{{ stock }} left</p>
       <div class="item-card__bottom-buttons">
-        <button v-if="isSelected" class="ds-primary-button ds-primary-button--round item-card__round-button"
-          @click="emit('onRemove', item)">
-          <img src="@/assets/images/minus.svg" alt="remove product">
+        <button
+          v-if="isSelected"
+          class="ds-primary-button ds-primary-button--round item-card__round-button"
+          @click="emit('onRemove', item)"
+        >
+          <img src="@/assets/images/minus.svg" alt="remove product" />
         </button>
-        <button class="ds-primary-button item-card__text-button" @click="emitAdd" :disabled="isOutOfStock"
-          :title="stock <= 0 ? 'Out of stock' : ''">
-          <img src="@/assets/images/plus.svg" alt="add product">
+        <button
+          class="ds-primary-button item-card__text-button"
+          @click="emitAdd"
+          :disabled="isOutOfStock"
+          :title="stock <= 0 ? 'Out of stock' : ''"
+        >
+          <img src="@/assets/images/plus.svg" alt="add product" />
           {{ isSelected ? selectedAmount : 'Add' }}
         </button>
       </div>

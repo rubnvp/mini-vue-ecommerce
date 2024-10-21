@@ -19,16 +19,14 @@ async function fetchFavorites() {
   items.value = groceries;
 }
 
-const unsubscribeStore = cartStore.$onAction(
-  ({ name, after }) => {
-    after((result) => {
-      if (name === 'checkout' && result === true) {
-        // Reset the view after a successful checkout
-        fetchFavorites();
-      }
-    })
-  }
-);
+const unsubscribeStore = cartStore.$onAction(({ name, after }) => {
+  after(result => {
+    if (name === 'checkout' && result === true) {
+      // Reset the view after a successful checkout
+      fetchFavorites();
+    }
+  });
+});
 
 onMounted(async () => {
   fetchFavorites();
@@ -42,9 +40,16 @@ onUnmounted(() => {
 <template>
   <main>
     <div class="favorites-view__cards">
-      <ItemCard v-for="item in items" :key="item.id" :item="item" :stock="cartStore.getStock(item)"
-        :selectedAmount="cartStore.getSelectedAmount(item)" @onAdd="cartStore.addItem" @onRemove="cartStore.removeItem"
-        @onFavorite="removeFavorite" />
+      <ItemCard
+        v-for="item in items"
+        :key="item.id"
+        :item="item"
+        :stock="cartStore.getStock(item)"
+        :selectedAmount="cartStore.getSelectedAmount(item)"
+        @onAdd="cartStore.addItem"
+        @onRemove="cartStore.removeItem"
+        @onFavorite="removeFavorite"
+      />
     </div>
   </main>
 </template>
