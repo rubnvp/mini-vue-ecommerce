@@ -16,6 +16,11 @@ const emit = defineEmits<{
 
 const isSelected = computed(() => selectedAmount > 0);
 const isOutOfStock = computed(() => stock <= 0);
+
+function emitAdd() {
+  if (isOutOfStock.value) return;
+  emit('onAdd', item);
+}
 </script>
 
 <template>
@@ -41,7 +46,7 @@ const isOutOfStock = computed(() => stock <= 0);
           @click="emit('onRemove', item)">
           <img src="@/assets/images/minus.svg" alt="remove product">
         </button>
-        <button class="ds-primary-button item-card__text-button" @click="emit('onAdd', item)" :disabled="isOutOfStock"
+        <button class="ds-primary-button item-card__text-button" @click="emitAdd" :disabled="isOutOfStock"
           :title="stock <= 0 ? 'Out of stock' : ''">
           <img src="@/assets/images/plus.svg" alt="add product">
           {{ isSelected ? selectedAmount : 'Add' }}
