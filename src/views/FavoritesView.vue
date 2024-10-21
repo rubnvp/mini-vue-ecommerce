@@ -16,7 +16,7 @@ onMounted(async () => {
 
 <template>
   <main>
-    <div class="home-view__cards">
+    <div class="favorites-view__cards">
       <ItemCard v-for="item in items" :key="item.id" :item="item" :stock="cartStore.getStock(item)"
         :selectedAmount="cartStore.itemIdToAmountMap[item.id]" @onAdd="cartStore.addItem"
         @onRemove="cartStore.removeItem" />
@@ -25,7 +25,7 @@ onMounted(async () => {
 </template>
 
 <style lang="scss">
-.home-view {
+.favorites-view {
   &__cards {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));

@@ -18,14 +18,20 @@ const isOutOfStock = computed(() => stock <= 0);
 </script>
 
 <template>
-  <div class="item-card" :class="{ 'item-card--no-stock': isOutOfStock }">
-    <img class="item-card__image" :src="item.imageUrl" alt="product image">
-    <div>
-      <div class="item-card__title">
-        <h3>{{ item.name }}</h3>
-        <span class="item-card__price">{{ item.price }}€</span>
+  <div class="item-card">
+    <button class="item-card__favorite" aria-label="favorite">
+      <img v-if="item.favorite" src="@/assets/images/heart-fill.svg">
+      <img v-else src="@/assets/images/heart-outline.svg">
+    </button>
+    <div :class="{ 'item-card--no-stock': isOutOfStock }">
+      <img class="item-card__image" :src="item.imageUrl" alt="product image">
+      <div>
+        <div class="item-card__title">
+          <h3>{{ item.name }}</h3>
+          <span class="item-card__price">{{ item.price }}€</span>
+        </div>
+        <p class="item-card__description" :title="item.description">{{ item.description }}</p>
       </div>
-      <p class="item-card__description" :title="item.description">{{ item.description }}</p>
     </div>
     <div class="item-card__bottom">
       <p>{{ stock }} left</p>
@@ -53,9 +59,23 @@ const isOutOfStock = computed(() => stock <= 0);
   border: 1px solid #ccc;
   border-radius: 5px;
   margin-bottom: 1rem;
+  position: relative;
 
   &--no-stock {
     opacity: 0.5;
+  }
+
+  &__favorite {
+    background: none;
+    border: none;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    cursor: pointer;
+
+    &:hover {
+      filter: invert(0.2);
+    }
   }
 
   &__image {

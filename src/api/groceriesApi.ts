@@ -2,8 +2,19 @@ import type { ItemType } from '@/types';
 
 const BASE_API = '/api';
 
-export async function fetchGroceries(): Promise<ItemType[]> {
-  const response = await fetch(`${BASE_API}/grocery?_page=1&_limit=24`);
+interface FetchGroceriesParams {
+  page?: number;
+  limit?: number;
+}
+export async function fetchGroceries(
+  params: FetchGroceriesParams,
+): Promise<ItemType[]> {
+  const { page = 1, limit = 24 } = params || {};
+  const urlParams = new URLSearchParams({
+    _page: page.toString(),
+    _limit: limit.toString(),
+  });
+  const response = await fetch(`${BASE_API}/grocery?${urlParams.toString()}`);
   const groceries = await response.json();
   // override the imageUrl with a random cat image (the original links are broken)
   return groceries.map((grocery: ItemType) => ({

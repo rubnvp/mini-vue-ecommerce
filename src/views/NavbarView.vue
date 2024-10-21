@@ -12,7 +12,8 @@ const toggleId = 'cart-toggle';
         <img src="@/assets/images/logo.png" alt="Main logo" class="navbar-view__logo">
       </RouterLink>
       <nav class="navbar-view__navbar">
-        <RouterLink class="navbar-view__navbar--item" to="/">Favorites</RouterLink>
+        <RouterLink class="navbar-view__navbar--item" to="/">Products</RouterLink>
+        <RouterLink class="navbar-view__navbar--item" to="/favorites">Favorites</RouterLink>
         <RouterLink class="navbar-view__navbar--item" to="/about">About</RouterLink>
         <span :id="toggleId"></span>
       </nav>
@@ -26,7 +27,7 @@ const toggleId = 'cart-toggle';
   z-index: 1;
 
   &__inner-header {
-    color: white;
+    color: inherit;
     padding: 1rem;
     max-width: 1024px;
     margin: 0 auto;
