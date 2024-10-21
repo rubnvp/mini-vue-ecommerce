@@ -5,14 +5,16 @@ const BASE_API = '/api';
 interface FetchGroceriesParams {
   page?: number;
   limit?: number;
+  favorite?: boolean;
 }
 export async function fetchGroceries(
   params: FetchGroceriesParams,
 ): Promise<ItemType[]> {
-  const { page = 1, limit = 24 } = params || {};
+  const { page = 1, limit = 24, favorite } = params || {};
   const urlParams = new URLSearchParams({
     _page: page.toString(),
     _limit: limit.toString(),
+    ...(favorite !== undefined && { favorite: String(favorite) }),
   });
   const response = await fetch(`${BASE_API}/grocery?${urlParams.toString()}`);
   const groceries = await response.json();
@@ -21,6 +23,19 @@ export async function fetchGroceries(
     ...grocery,
     imageUrl: getUrl(grocery.id),
   }));
+}
+
+export async function updateGrocery(
+  grocery: Partial<ItemType>,
+): Promise<ItemType> {
+  const response = await fetch(`${BASE_API}/grocery/${grocery.id}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(grocery),
+  });
+  return response.json();
 }
 
 function getUrl(id: string) {

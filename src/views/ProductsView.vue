@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import { fetchGroceries } from '@/api/groceriesApi';
+import { fetchGroceries, updateGrocery } from '@/api/groceriesApi';
 import type { ItemType } from '@/types';
 import { useCartStore } from '@/stores/cartStore';
 import ItemCard from '@/components/ItemCard.vue';
@@ -8,16 +8,21 @@ import ItemCard from '@/components/ItemCard.vue';
 const items = ref<ItemType[]>([]);
 const cartStore = useCartStore();
 
-onMounted(async () => {
-  loadMore();
-});
-
 const page = ref(0);
 const loadMore = async () => {
   page.value++;
   const groceries = await fetchGroceries({ page: page.value });
   items.value = [...items.value, ...groceries];
 };
+
+async function toggleFavorite(item: ItemType) {
+  const updatedItem = await updateGrocery({ id: item.id, favorite: !item.favorite });
+  item.favorite = updatedItem.favorite;
+}
+
+onMounted(async () => {
+  loadMore();
+});
 </script>
 
 <template>
@@ -25,13 +30,13 @@ const loadMore = async () => {
     <div class="products-view__cards">
       <ItemCard v-for="item in items" :key="item.id" :item="item" :stock="cartStore.getStock(item)"
         :selectedAmount="cartStore.itemIdToAmountMap[item.id]" @onAdd="cartStore.addItem"
-        @onRemove="cartStore.removeItem" />
+        @onRemove="cartStore.removeItem" @onFavorite="toggleFavorite" />
     </div>
     <div class="products-view__load-more">
       <p>
-        Showing {{ items.length }} products out of 1,000
+        Showing {{ items.length }} out of 1,000 products
       </p>
-      <button class="ds-primary-button" @click="loadMore">Load more</button>
+      <button class="ds-primary-button" @click="loadMore">⚡️ Load more</button>
     </div>
   </main>
 </template>

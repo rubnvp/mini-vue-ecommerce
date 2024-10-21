@@ -11,6 +11,7 @@ const { item, stock, selectedAmount = 0 } = defineProps<{
 const emit = defineEmits<{
   onAdd: [item: ItemType]
   onRemove: [item: ItemType]
+  onFavorite: [item: ItemType]
 }>();
 
 const isSelected = computed(() => selectedAmount > 0);
@@ -19,7 +20,7 @@ const isOutOfStock = computed(() => stock <= 0);
 
 <template>
   <div class="item-card">
-    <button class="item-card__favorite" aria-label="favorite">
+    <button @click="emit('onFavorite', item)" class="item-card__favorite" aria-label="favorite">
       <img v-if="item.favorite" src="@/assets/images/heart-fill.svg">
       <img v-else src="@/assets/images/heart-outline.svg">
     </button>

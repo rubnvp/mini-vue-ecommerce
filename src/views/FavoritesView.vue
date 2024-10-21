@@ -1,16 +1,26 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import { fetchGroceries } from '@/api/groceriesApi';
+import { fetchGroceries, updateGrocery } from '@/api/groceriesApi';
 import type { ItemType } from '@/types';
 import { useCartStore } from '@/stores/cartStore';
 import ItemCard from '@/components/ItemCard.vue';
 
-const items = ref<ItemType[]>([]);
 const cartStore = useCartStore();
 
-onMounted(async () => {
-  const groceries = await fetchGroceries();
+const items = ref<ItemType[]>([]);
+
+async function removeFavorite(item: ItemType) {
+  await updateGrocery({ id: item.id, favorite: false });
+  await fetchFavorites();
+}
+
+async function fetchFavorites() {
+  const groceries = await fetchGroceries({ favorite: true });
   items.value = groceries;
+}
+
+onMounted(async () => {
+  fetchFavorites();
 });
 </script>
 
@@ -19,7 +29,7 @@ onMounted(async () => {
     <div class="favorites-view__cards">
       <ItemCard v-for="item in items" :key="item.id" :item="item" :stock="cartStore.getStock(item)"
         :selectedAmount="cartStore.itemIdToAmountMap[item.id]" @onAdd="cartStore.addItem"
-        @onRemove="cartStore.removeItem" />
+        @onRemove="cartStore.removeItem" @onFavorite="removeFavorite" />
     </div>
   </main>
 </template>
