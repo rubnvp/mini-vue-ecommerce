@@ -30,4 +30,4 @@ coverage
 *.tsbuildinfo
 
 # Dev backend data
-db.json
+# db.json

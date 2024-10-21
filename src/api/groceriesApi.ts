@@ -1,6 +1,6 @@
 import type { ItemType } from '@/types';
 
-const BASE_API = '/api';
+const BASE_API = import.meta.env.VITE_BASE_API ?? '';
 
 interface FetchGroceriesParams {
   page?: number;
