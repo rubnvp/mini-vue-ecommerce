@@ -17,7 +17,7 @@ export async function fetchGroceries(
     ...(favorite !== undefined && { favorite: String(favorite) }),
   });
   const response = await fetch(`${BASE_API}/grocery?${urlParams.toString()}`);
-  const groceries = await response.json();
+  const groceries = (await response.json()) as ItemType[];
   // override the imageUrl with a random cat image (the original links are broken)
   return groceries.map((grocery: ItemType) => ({
     ...grocery,
@@ -35,7 +35,7 @@ export async function updateGrocery(
     },
     body: JSON.stringify(grocery),
   });
-  return response.json();
+  return response.json() as Promise<ItemType>;
 }
 
 function getUrl(id: string) {

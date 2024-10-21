@@ -4,7 +4,7 @@ import { defineStore } from 'pinia';
 import type { ItemType } from '@/types';
 import { updateGrocery } from '@/api/groceriesApi';
 
-type CartItem = {
+export type CartItem = {
   item: ItemType;
   amount: number;
 };
@@ -71,7 +71,7 @@ export const useCartStore = defineStore('cart', () => {
       id: item.id,
       stock: getStock(item),
     }));
-    await Promise.all(itemUpdates.map(updateGrocery));
+    await Promise.all(itemUpdates.map(item => updateGrocery(item)));
     cartItems.value = [];
     return true;
   }
