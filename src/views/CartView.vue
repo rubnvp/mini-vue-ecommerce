@@ -41,7 +41,7 @@ async function checkout() {
     v-on-click-outside.bubble="closeCart"
   >
     <Teleport :to="`#${toggleId}`" defer>
-      <button class="cart-view__toggle" @click.stop="toggleCart">
+      <button v-auto-animate class="cart-view__toggle" @click.stop="toggleCart">
         <img
           class="cart-view__toggle--icon"
           src="@/assets/images/cart.svg"
@@ -71,7 +71,7 @@ async function checkout() {
         </button>
       </div>
     </div>
-    <div v-auto-animate class="cart-view__items">
+    <div class="cart-view__items">
       <CartItem
         v-for="{ item, amount } in cartStore.cartItems"
         :key="item.id"
