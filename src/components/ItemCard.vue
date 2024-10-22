@@ -43,6 +43,7 @@ function emitAdd() {
     </div>
     <button
       @click="emit('onFavorite', item)"
+      v-auto-animate
       class="item-card__favorite"
       aria-label="favorite"
     >
