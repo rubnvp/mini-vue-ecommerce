@@ -39,7 +39,7 @@ onUnmounted(() => {
 
 <template>
   <main>
-    <div class="favorites-view__cards">
+    <div v-auto-animate class="favorites-view__cards">
       <ItemCard
         v-for="item in items"
         :key="item.id"

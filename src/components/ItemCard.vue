@@ -51,7 +51,7 @@ function emitAdd() {
     </button>
     <div class="item-card__bottom">
       <p>{{ stock }} left</p>
-      <div class="item-card__bottom-buttons">
+      <div v-auto-animate class="item-card__bottom-buttons">
         <button
           v-if="isSelected"
           class="ds-primary-button ds-primary-button--round item-card__round-button"

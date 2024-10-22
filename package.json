@@ -17,6 +17,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@formkit/auto-animate": "^0.8.2",
     "@vueuse/components": "^11.1.0",
     "@vueuse/core": "^11.1.0",
     "json-server": "^0.17.4",

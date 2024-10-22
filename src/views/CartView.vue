@@ -71,7 +71,7 @@ async function checkout() {
         </button>
       </div>
     </div>
-    <div class="cart-view__items">
+    <div v-auto-animate class="cart-view__items">
       <CartItem
         v-for="{ item, amount } in cartStore.cartItems"
         :key="item.id"
