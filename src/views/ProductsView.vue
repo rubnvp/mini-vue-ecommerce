@@ -45,7 +45,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <main>
+  <div>
     <div v-auto-animate class="products-view__cards">
       <ItemCard
         v-for="item in items"
@@ -64,7 +64,7 @@ onUnmounted(() => {
         ⚡️ Load more
       </button>
     </div>
-  </main>
+  </div>
 </template>
 
 <style lang="scss">

@@ -6,9 +6,9 @@ import NavbarView from '@/views/NavbarView.vue';
 <template>
   <NavbarView class="app__header" />
   <RouterView v-slot="{ Component }">
-    <div v-auto-animate class="app__view">
+    <main v-auto-animate class="app__view">
       <component :is="Component" />
-    </div>
+    </main>
   </RouterView>
 </template>
 
