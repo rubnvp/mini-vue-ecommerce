@@ -5,7 +5,11 @@ import NavbarView from '@/views/NavbarView.vue';
 
 <template>
   <NavbarView class="app__header" />
-  <RouterView class="app__view" />
+  <RouterView v-slot="{ Component }">
+    <div v-auto-animate class="app__view">
+      <component :is="Component" />
+    </div>
+  </RouterView>
 </template>
 
 <style lang="scss">
