@@ -38,17 +38,26 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div v-auto-animate class="cards">
-    <ItemCard v-for="item in items" :key="item.id" :item="item" :stock="cartStore.getStock(item)"
-      :selectedAmount="cartStore.getSelectedAmount(item)" @onAdd="cartStore.addItem" @onRemove="cartStore.removeItem"
-      @onFavorite="removeFavorite" />
+  <div v-auto-animate class="favorites-view__cards">
+    <ItemCard
+      v-for="item in items"
+      :key="item.id"
+      :item="item"
+      :stock="cartStore.getStock(item)"
+      :selectedAmount="cartStore.getSelectedAmount(item)"
+      @onAdd="cartStore.addItem"
+      @onRemove="cartStore.removeItem"
+      @onFavorite="removeFavorite"
+    />
   </div>
 </template>
 
-<style lang="scss" scoped>
-.cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 1rem;
+<style lang="scss">
+.favorites-view {
+  &__cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+  }
 }
 </style>

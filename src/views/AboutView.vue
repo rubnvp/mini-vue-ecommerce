@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="about-view">
     <h1>About this project</h1>
     <p>
       This project is a simple SPA (Single Page Application) that simulates an
