@@ -1,6 +1,6 @@
 import { setActivePinia, createPinia } from 'pinia';
 import { beforeEach, describe, expect, test, vi } from 'vitest';
-import { useCartStore, type CartItem } from './cartStore';
+import { useCartStore } from './cartStore';
 import { updateGrocery } from '@/api/groceriesApi';
 import { useStorage } from '@vueuse/core';
 
@@ -13,7 +13,7 @@ describe('Cart Store', () => {
   beforeEach(() => {
     setActivePinia(createPinia());
     vi.restoreAllMocks();
-    const cartItems = useStorage<CartItem[]>('cart-items', []);
+    const cartItems = useStorage('cart-items', []);
     cartItems.value = []; // reset cartItems
   });
 
@@ -32,8 +32,7 @@ describe('Cart Store', () => {
     // ACT
     cartStore.addItem(item);
     // ASSERT
-    const cartItems = cartStore.cartItems as unknown as CartItem[];
-    expect(cartItems[0].item).toEqual(item);
+    expect(cartStore.cartItems[0].item).toEqual(item);
   });
 
   test('does not add item to cart if stock is 0', () => {
