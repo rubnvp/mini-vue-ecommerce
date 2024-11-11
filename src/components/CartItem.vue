@@ -14,23 +14,17 @@ const emit = defineEmits<{
 
 <template>
   <div class="cart-item">
-    <img class="cart-item__image" :src="item.imageUrl" alt="product image" />
-    <div class="cart-item__body">
-      <div class="cart-item__info">
-        <h3 class="cart-item__name">{{ item.name }}</h3>
-        <p class="cart-item__price">{{ amount }} x {{ item.price }}€</p>
+    <img class="image" :src="item.imageUrl" alt="product image" />
+    <div class="body">
+      <div class="info">
+        <h3 class="name">{{ item.name }}</h3>
+        <p class="price">{{ amount }} x {{ item.price }}€</p>
       </div>
-      <div class="cart-item__buttons">
-        <button
-          class="ds-primary-button ds-primary-button--round"
-          @click="emit('onRemove', item)"
-        >
+      <div class="buttons">
+        <button class="ds-primary-button ds-primary-button--round" @click="emit('onRemove', item)">
           <img src="@/assets/images/minus.svg" alt="remove product" />
         </button>
-        <button
-          class="ds-primary-button ds-primary-button--round"
-          @click="emit('onAdd', item)"
-        >
+        <button class="ds-primary-button ds-primary-button--round" @click="emit('onAdd', item)">
           <img src="@/assets/images/plus.svg" alt="add product" />
         </button>
       </div>
@@ -38,43 +32,43 @@ const emit = defineEmits<{
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .cart-item {
   display: flex;
   align-items: center;
   padding: 1rem;
   border: 1px solid #ccc;
   border-radius: 5px;
+}
 
-  &__image {
-    height: 100px;
-    width: 100px;
-    object-fit: cover;
-    margin-right: 1rem;
-  }
+.image {
+  height: 100px;
+  width: 100px;
+  object-fit: cover;
+  margin-right: 1rem;
+}
 
-  &__body {
-    width: 100%;
-  }
+.body {
+  width: 100%;
+}
 
-  &__info {
-    display: flex;
-    margin-bottom: 10px;
-  }
+.info {
+  display: flex;
+  margin-bottom: 10px;
+}
 
-  &__name {
-    margin-right: 1rem;
-    flex-grow: 1;
-  }
+.name {
+  margin-right: 1rem;
+  flex-grow: 1;
+}
 
-  &__price {
-    text-wrap: nowrap;
-  }
+.price {
+  text-wrap: nowrap;
+}
 
-  &__buttons {
-    display: flex;
-    justify-content: right;
-    gap: 4px;
-  }
+.buttons {
+  display: flex;
+  justify-content: right;
+  gap: 4px;
 }
 </style>

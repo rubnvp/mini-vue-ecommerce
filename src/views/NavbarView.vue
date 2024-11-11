@@ -6,25 +6,15 @@ const toggleId = 'cart-toggle';
 </script>
 
 <template>
-  <header class="navbar-view">
-    <div class="navbar-view__inner-header">
+  <header>
+    <div class="inner-header">
       <RouterLink to="/">
-        <img
-          src="@/assets/images/logo.png"
-          alt="Main logo"
-          class="navbar-view__logo"
-        />
+        <img src="@/assets/images/logo.png" alt="Main logo" class="logo" />
       </RouterLink>
-      <nav class="navbar-view__navbar">
-        <RouterLink class="navbar-view__navbar--item" to="/"
-          >Products</RouterLink
-        >
-        <RouterLink class="navbar-view__navbar--item" to="/favorites"
-          >Favorites</RouterLink
-        >
-        <RouterLink class="navbar-view__navbar--item" to="/about"
-          >About</RouterLink
-        >
+      <nav class="navbar">
+        <RouterLink class="navbar-item" to="/">Products</RouterLink>
+        <RouterLink class="navbar-item" to="/favorites">Favorites</RouterLink>
+        <RouterLink class="navbar-item" to="/about">About</RouterLink>
         <span :id="toggleId"></span>
       </nav>
     </div>
@@ -32,41 +22,39 @@ const toggleId = 'cart-toggle';
   </header>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '@/assets/variables.scss';
 
-.navbar-view {
-  &__inner-header {
-    color: inherit;
-    padding: 1rem;
-    max-width: 1024px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+.inner-header {
+  color: inherit;
+  padding: 1rem;
+  max-width: 1024px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-  &__logo {
-    height: 3rem;
-  }
+.logo {
+  height: 3rem;
+}
 
-  &__navbar {
-    display: flex;
-    align-items: center;
+.navbar {
+  display: flex;
+  align-items: center;
+}
 
-    &--item {
-      color: white;
-      text-decoration: none;
-      padding: 0.5rem;
+.navbar-item {
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem;
 
-      &:first-child {
-        // Hide the first item on small mobile
-        display: none;
+  &:first-child {
+    // Hide the first item on small mobile
+    display: none;
 
-        @media (min-width: $small-mobile) {
-          display: block;
-        }
-      }
+    @media (min-width: $small-mobile) {
+      display: block;
     }
   }
 }
