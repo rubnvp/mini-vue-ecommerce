@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+    <link rel="stylesheet" href="_styles.css" />
+  </head>
+  <body>
+    <header class="navbar-view app__header">
+      <div class="navbar-view__inner-header">
+        <a
+          href="/"
+          class="router-link-active router-link-exact-active"
+          aria-current="page"
+          ><img
+            src="_images/logo.png"
+            alt="Main logo"
+            class="navbar-view__logo"
+        /></a>
+        <nav class="navbar-view__navbar">
+          <a
+            href="/"
+            class="router-link-active router-link-exact-active navbar-view__navbar--item"
+            aria-current="page"
+            >Products</a
+          ><a href="/favorites" class="navbar-view__navbar--item">Favorites</a
+          ><a href="/about" class="navbar-view__navbar--item">About</a
+          ><span id="cart-toggle"
+            ><button class="cart-view__toggle">
+              <img
+                class="cart-view__toggle--icon"
+                src="_images/cart.svg"
+                alt="cart"
+              />
+              <div class="cart-view__toggle--counter">1</div>
+            </button></span
+          >
+        </nav>
+      </div>
+      <aside class="cart-view">
+        <div class="cart-view__title">
+          <span><b>1 item</b> selected </span>
+          <div class="cart-view__checkout">
+            <b>Total 98€</b><button class="ds-primary-button">Checkout</button>
+          </div>
+        </div>
+        <div class="cart-view__items">
+          <div class="cart-item">
+            <img
+              class="cart-item__image"
+              src="https://cdn2.thecatapi.com/images/aho.jpg"
+              alt="product image"
+            />
+            <div class="cart-item__body">
+              <div class="cart-item__info">
+                <h3 class="cart-item__name">Handcrafted Metal Towels</h3>
+                <p class="cart-item__price">1 x 98€</p>
+              </div>
+              <div class="cart-item__buttons">
+                <button class="ds-primary-button ds-primary-button--round">
+                  <img src="_images/minus.svg" alt="remove product" /></button
+                ><button class="ds-primary-button ds-primary-button--round">
+                  <img src="_images/plus.svg" alt="add product" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </header>
+    <main class="app__view">
+      <div class="products-view__cards">
+        <div class="item-card">
+          <div class="">
+            <img
+              class="item-card__image"
+              src="https://cdn2.thecatapi.com/images/_qUK20W2d.jpg"
+              alt="product image"
+            />
+            <div>
+              <div class="item-card__title">
+                <h3>Unbranded Metal Chair</h3>
+                <span class="item-card__price">43€</span>
+              </div>
+              <p
+                class="item-card__description"
+                title="Porro tempore autem. Sunt molestias qui quod recusandae nemo quia optio. Nostrum aperiam officiis aut reprehenderit illo."
+              >
+                Porro tempore autem. Sunt molestias qui quod recusandae nemo
+                quia optio. Nostrum aperiam officiis aut reprehenderit illo.
+              </p>
+            </div>
+          </div>
+          <button class="item-card__favorite" aria-label="favorite">
+            <img src="_images/heart-outline.svg" />
+          </button>
+          <div class="item-card__bottom">
+            <p>8 left</p>
+            <div class="item-card__bottom-buttons">
+              <button class="ds-primary-button item-card__text-button" title="">
+                <img src="_images/plus.svg" alt="add product" />
+                Add
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="item-card">
+          <div class="">
+            <img
+              class="item-card__image"
+              src="https://cdn2.thecatapi.com/images/aho.jpg"
+              alt="product image"
+            />
+            <div>
+              <div class="item-card__title">
+                <h3>Handcrafted Metal Towels</h3>
+                <span class="item-card__price">98€</span>
+              </div>
+              <p
+                class="item-card__description"
+                title="Rerum minima laudantium blanditiis dolorem dolores ut sint ut quidem. Est doloremque repellat excepturi dolor consequatur rerum qui. Facere ut vel et enim accusamus ipsum dolores aut. Eaque quo ut omnis unde quam error voluptas non iure."
+              >
+                Rerum minima laudantium blanditiis dolorem dolores ut sint ut
+                quidem. Est doloremque repellat excepturi dolor consequatur
+                rerum qui. Facere ut vel et enim accusamus ipsum dolores aut.
+                Eaque quo ut omnis unde quam error voluptas non iure.
+              </p>
+            </div>
+          </div>
+          <button class="item-card__favorite" aria-label="favorite">
+            <img src="_images/heart-fill.svg" />
+          </button>
+          <div class="item-card__bottom">
+            <p>31 left</p>
+            <div class="item-card__bottom-buttons">
+              <button
+                class="ds-primary-button ds-primary-button--round item-card__round-button"
+              >
+                <img src="_images/minus.svg" alt="remove product" /></button
+              ><button
+                class="ds-primary-button item-card__text-button"
+                title=""
+              >
+                <img src="_images/plus.svg" alt="add product" />
+                1
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="products-view__load-more">
+        <p>Showing 24 out of 1,000 products</p>
+        <button class="ds-primary-button">⚡️ Load more</button>
+      </div>
+    </main>
+  </body>
+</html>
